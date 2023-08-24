@@ -1,4 +1,5 @@
 ﻿using Project1.Data;
+using Project1.DTOS;
 using Project1.Models;
 
 namespace Project1.Services
@@ -25,6 +26,26 @@ namespace Project1.Services
             var SingleProduct = _db.Products.Find(Id);
             _db.Products.Remove(SingleProduct);
             _db.SaveChanges();
+        }
+        public int Create(ProductCreateDTO dto)
+        {
+            Product product = new Product();
+            product.Price = dto.price;
+            product.Name = dto.Name;
+            product.Cost = dto.cost;
+            _db.Products.Add(product);
+            _db.SaveChanges();
+            return product.Id;
+        }
+        public int Update(ProductUpdateDTO dto)
+        {
+            var product = _db.Products.Find(dto.Id);
+            product.Price = dto.price;
+            product.Name = dto.Name;
+            product.Cost = dto.cost;
+            _db.Products.Update(product);
+            _db.SaveChanges();
+            return product.Id;
         }
     }
 }

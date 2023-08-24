@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Project1.DTOS;
 using Project1.Services;
 
 namespace Project1.Controllers
@@ -23,14 +24,14 @@ namespace Project1.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create()
+        public IActionResult Create([FromBody]ProductCreateDTO dto)
         {
-            return Ok();
+            return Ok(_productServices.Create(dto));
         }
-        [HttpPost]
-        public IActionResult Update()
+        [HttpPut]
+        public IActionResult Update([FromBody] ProductUpdateDTO dto)
         {
-            return Ok();
+            return Ok(_productServices.Update(dto));
         }
 
         [HttpDelete]
