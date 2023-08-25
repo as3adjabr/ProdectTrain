@@ -1,5 +1,6 @@
 ﻿using Project1.Data;
 using Project1.DTOS;
+using Project1.Exep;
 using Project1.Models;
 
 namespace Project1.Services
@@ -29,6 +30,15 @@ namespace Project1.Services
         }
         public int Create(ProductCreateDTO dto)
         {
+            var IsExistProduct = _db.Products.Any(x=>x.Name== dto.Name);
+            if (IsExistProduct)
+            {
+                throw new ExpeptionDublicatedProduct();
+            }
+            if (dto.price<dto.cost)
+            {
+                throw new PricrLessCost();
+            }
             Product product = new Product();
             product.Price = dto.price;
             product.Name = dto.Name;
